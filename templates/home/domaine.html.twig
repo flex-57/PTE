@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	{{ domaine.nom }}
+{% endblock %}
+
+{% block body %}
+	<h1 class="text-3xl font-bold mb-6 text-gray-800">Domaine :
+		{{ domaine.nom }}
+	</h1>
+	<section class="mb-6">
+		<h2 class="text-2xl font-semibold">Description</h2>
+		<p class="mt-2 text-gray-700">{{ domaine.description|default('Aucune description disponible.') }}</p>
+	</section>
+
+	<section class="mb-10">
+		<h2 class="text-2xl font-semibold mb-4">Métiers</h2>
+		{% if domaine.metiers|length > 0 %}
+			<div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+				{% for m in domaine.metiers %}
+					{% set card_params = {
+                        link: path('metier_show', {'id': m.id}),
+                        icon: 'fas fa-briefcase',
+                        title: m.nom,
+                        description: m.description|default('Aucune description'),
+                        badges: [
+                            {'name':'Critère', 'count': m.criteres|length},
+                        ],
+                        color: '#265e79',
+                    } %}
+					{% include '_includes/_card.html.twig' with card_params %}
+				{% endfor %}
+			</div>
+		{% else %}
+			<p class="text-gray-500">Aucun métier disponible.</p>
+		{% endif %}
+	</section>
+
+	<section class="mb-10">
+		<h2 class="text-2xl font-semibold mb-4">Évaluations</h2>
+		{% if domaine.evaluations|length > 0 %}
+			<div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+				{% for e in domaine.evaluations %}
+					{% set card_params = {
+                        link: path('evaluation_show', {'id': e.id}),
+                        icon: 'fas fa-check-circle',
+                        title: e.nom,
+                        description: e.description|default('Aucune description'),
+                        badges: [
+                            {'name':'Critère', 'count': e.criteres|length},
+                        ],
+                        color: '#217a4e',
+                    } %}
+					{% include '_includes/_card.html.twig' with card_params %}
+				{% endfor %}
+			</div>
+		{% else %}
+			<p class="text-gray-500">Aucune évaluation disponible.</p>
+		{% endif %}
+	</section>
+{% endblock %}

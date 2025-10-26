@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	{{ critere_evaluation.nom }}
+{% endblock %}
+
+{% block body %}
+	<h1 class="text-3xl font-bold mb-4 text-gray-800">Critère Métier :
+		{{ critere_evaluation.nom }}
+	</h1>
+	<section class="mb-6">
+		<h2 class="text-2xl font-semibold">Description</h2>
+		<p class="mt-2 text-gray-700">{{ critere_evaluation.description|default('Aucune description disponible.') }}</p>
+	</section>
+
+	<section class="mb-10">
+		<h2 class="text-2xl font-semibold mb-4">Critères</h2>
+		{% if critere_evaluation.evaluations|length > 0 %}
+			<div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+				{% for m in critere_evaluation.evaluations %}
+					{% set card_params = {
+                        link: path('metier_show', {'id': m.id}),
+                        icon: 'fas fa-list',
+                        title: m.nom,
+                        description: cm.description|default(''),
+                        badges: [
+                            {'name':'Métier', 'count': m.criteres|length},
+                        ],
+                        color: '#dd890a',
+                    } %}
+					{% include '_includes/_card.html.twig' with card_params %}
+				{% endfor %}
+			</div>
+		{% else %}
+			<p class="text-gray-500">Aucun critère de métier disponible.</p>
+		{% endif %}
+	</section>
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	{{ evaluation.nom }}
+{% endblock %}
+
+{% block body %}
+	<h1 class="text-3xl font-bold mb-4 text-gray-800">Évaluation :
+		{{ evaluation.nom }}</h1>
+
+	<section class="mb-6">
+		<h2 class="text-2xl font-semibold">Domaine :</h2>
+		<a href="{{ path('domaine_show', {'id': evaluation.domaine.id}) }}" class="inline-block mt-1 px-2 py-1 bg-green-100 text-green-800 rounded hover:bg-green-200 transition">
+			{{ evaluation.domaine.nom }}
+		</a>
+	</section>
+
+	<section class="mb-10">
+		<h2 class="text-2xl font-semibold mb-4">Critères</h2>
+		{% if evaluation.criteres|length > 0 %}
+			<div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+				{% for ce in evaluation.criteres %}
+					{% set card_params = {
+                        link: path('critere_evaluation_show', {'id': ce.id}),
+                        icon: 'fas fa-check',
+                        title: ce.nom,
+                        description: ce.description|default(''),
+                        badges: [
+                            {'name':'Critère', 'count': ce.evaluations|length},
+                        ],
+                        color: '#2b7c6e',
+                    } %}
+					{% include '_includes/_card.html.twig' with card_params %}
+				{% endfor %}
+			</div>
+		{% else %}
+			<p class="text-gray-500">Aucun critère d'évaluation disponible.</p>
+		{% endif %}
+	</section>
+{% endblock %}

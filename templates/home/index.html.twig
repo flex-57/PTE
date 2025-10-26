@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Domaines
+{% endblock %}
+
+{% block body %}
+	<h1 class="text-3xl font-bold mb-6">Domaines</h1>
+	{% if domaines is empty %}
+		<div class="p-6 bg-yellow-50 border border-yellow-200 rounded-lg text-yellow-700">
+			<p class="text-center">Aucun domaine trouvé.</p>
+		</div>
+	{% else %}
+		<div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+			{% for d in domaines %}
+				{% set card_params = {
+                    link: path('domaine_show', {'id': d.id}),
+                    icon: 'fas fa-folder-open',
+                    title: d.nom,
+                    description: d.description|length > 80 ? d.description|slice(0, 80) ~ '...' : d.description,
+                    badges: [
+                        {'name':'Metier', 'count': d.metiers|length},
+                        {'name':'Evaluation', 'count': d.evaluations|length}
+                    ],
+                    color: '#1f5c6f',
+                } %}
+				{% include '_includes/_card.html.twig' with card_params %}
+			{% endfor %}
+		</div>
+	{% endif %}
+{% endblock %}

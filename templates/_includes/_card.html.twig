@@ -1,0 +1,44 @@
+<a href="{{ link|default('#') }}"
+    class="group flex flex-col justify-between rounded-md shadow-sm shadow-gray-300 hover:shadow-lg hover:shadow-gray-400 transition-shadow duration-300 h-full overflow-hidden"
+    style="background: linear-gradient(150deg,
+        {{ color is defined ? color ~ '20' : 'rgba(255,255,255,0.95)' }} 0%,
+        {{ color is defined ? color ~ '0A' : 'rgba(245,245,245,0.95)' }} 100%);
+">
+
+	<div class="p-4 pb-3 flex flex-col flex-grow justify-between">
+
+		{# === TITLE === #}
+		<div class="mb-4">
+			<h2 class="text-2xl font-bold" style="color: {{ color|default('#1f2937') }};">
+				{% if icon is defined and icon %}
+					<i class="{{ icon }}"></i>
+				{% endif %}
+				{{ title|default('Sans titre') }}
+			</h2>
+		</div>
+
+        {# === DESCRIPTION === #}
+		<div class="mb-5">
+			<p style="color: {{ color|default('#1f2937') }};">
+				{{ description|default('Aucune description disponible.') }}
+			</p>
+		</div>
+
+        {# === BADGES === #}
+		<div class="flexjustify-start gap-2">
+			{% if badges is defined and badges|length > 0 %}
+				{% for badge in badges %}
+					<div class="inline-block px-3 py-1 text-sm font-medium rounded-xl" style="
+                        background-color: {{ color|default('#1f2937') }};
+                        color: #fff;
+                    ">
+						{{ badge.count }} {{ badge.name }}{{ badge.count > 1 ?  's' : '' }}
+					</div>
+				{% endfor %}
+			{% endif %}
+		</div>
+	</div>
+
+	{# === BARRE ANIMEE AU HOVER === #}
+	<div class="h-1 w-0 group-hover:w-full transition-all duration-300" style="background-color: {{ color|default('#1f2937') }};"></div>
+</a>
