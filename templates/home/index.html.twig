@@ -16,10 +16,10 @@
                     link: path('domaine_show', {'id': d.id}),
                     icon: 'fas fa-folder-open',
                     title: d.nom,
-                    description: d.description|length > 80 ? d.description|slice(0, 80) ~ '...' : d.description,
+                    description: d.description|length > 50 ? d.description|slice(0, 50) ~ '...' : d.description,
                     badges: [
                         {'name':'Metier', 'count': d.metiers|length},
-                        {'name':'Evaluation', 'count': d.evaluations|length}
+                        {'name':'Atelier', 'count': d.ateliers|length}
                     ],
                     color: '#1f5c6f',
                 } %}

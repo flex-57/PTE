@@ -7,7 +7,6 @@ use App\Utils\StringUtils;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Form\Util\StringUtil;
 
 #[ORM\Entity(repositoryClass: DomaineRepository::class)]
 class Domaine
@@ -26,13 +25,13 @@ class Domaine
     #[ORM\OneToMany(mappedBy: 'domaine', targetEntity: Metier::class, cascade: ['persist'], orphanRemoval: true)]
     private Collection $metiers;
 
-    #[ORM\OneToMany(mappedBy: 'domaine', targetEntity: Evaluation::class, cascade: ['persist'], orphanRemoval: true)]
-    private Collection $evaluations;
+    #[ORM\OneToMany(mappedBy: 'domaine', targetEntity: Atelier::class, cascade: ['persist'], orphanRemoval: true)]
+    private Collection $ateliers;
 
     public function __construct()
     {
         $this->metiers = new ArrayCollection();
-        $this->evaluations = new ArrayCollection();
+        $this->ateliers = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -91,27 +90,27 @@ class Domaine
         return $this;
     }
 
-    /** @return Collection<int, Evaluation> */
-    public function getEvaluations(): Collection
+    /** @return Collection<int, Atelier> */
+    public function getAteliers(): Collection
     {
-        return $this->evaluations;
+        return $this->ateliers;
     }
 
-    public function addEvaluation(Evaluation $evaluation): self
+    public function addAtelier(Atelier $atelier): self
     {
-        if (!$this->evaluations->contains($evaluation)) {
-            $this->evaluations->add($evaluation);
-            $evaluation->setDomaine($this);
+        if (!$this->ateliers->contains($atelier)) {
+            $this->ateliers->add($atelier);
+            $atelier->setDomaine($this);
         }
 
         return $this;
     }
 
-    public function removeEvaluation(Evaluation $evaluation): self
+    public function removeAtelier(Atelier $atelier): self
     {
-        if ($this->evaluations->removeElement($evaluation)) {
-            if ($evaluation->getDomaine() === $this) {
-                $evaluation->setDomaine(null);
+        if ($this->ateliers->removeElement($atelier)) {
+            if ($atelier->getDomaine() === $this) {
+                $atelier->setDomaine(null);
             }
         }
 

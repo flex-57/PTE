@@ -2,14 +2,14 @@
 
 namespace App\Entity;
 
-use App\Repository\CritereEvaluationRepository;
+use App\Repository\AtelierRepository;
 use App\Utils\StringUtils;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: CritereEvaluationRepository::class)]
-class CritereEvaluation
+#[ORM\Entity(repositoryClass: AtelierRepository::class)]
+class Atelier
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -22,12 +22,16 @@ class CritereEvaluation
     #[ORM\Column(type: 'text', nullable: true)]
     private ?string $description = null;
 
-    #[ORM\ManyToMany(targetEntity: Evaluation::class, mappedBy: 'criteres')]
-    private Collection $evaluations;
+    #[ORM\ManyToOne(targetEntity: Domaine::class, inversedBy: 'atelier')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Domaine $domaine = null;
+
+    #[ORM\ManyToMany(inversedBy: 'ateliers', targetEntity: Critere::class, cascade: ['persist'])]
+    private Collection $criteres;
 
     public function __construct()
     {
-        $this->evaluations = new ArrayCollection();
+        $this->criteres = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -43,6 +47,7 @@ class CritereEvaluation
     public function setNom(string $nom): self
     {
         $this->nom = $nom;
+
         return $this;
     }
 
@@ -54,31 +59,44 @@ class CritereEvaluation
     public function setDescription(?string $description): self
     {
         $this->description = $description;
+
         return $this;
     }
 
-    /**
-     * @return Collection|Evaluation[]
-     */
-    public function getEvaluations(): Collection
+    public function getDomaine(): ?Domaine
     {
-        return $this->evaluations;
+        return $this->domaine;
     }
 
-    public function addEvaluation(Evaluation $evaluation): self
+    public function setDomaine(?Domaine $domaine): self
     {
-        if (!$this->evaluations->contains($evaluation)) {
-            $this->evaluations->add($evaluation);
-            $evaluation->addCritere($this); // Maintenir la relation bidirectionnelle
-        }
+        $this->domaine = $domaine;
+
         return $this;
     }
 
-    public function removeEvaluation(Evaluation $evaluation): self
+    /** @return Collection<int, Critere> */
+    public function getCriteres(): Collection
     {
-        if ($this->evaluations->removeElement($evaluation)) {
-            $evaluation->removeCritere($this);
+        return $this->criteres;
+    }
+
+    public function addCritere(Critere $critere): self
+    {
+        if (!$this->criteres->contains($critere)) {
+            $this->criteres->add($critere);
+            $critere->addAtelier($this);
         }
+
+        return $this;
+    }
+
+    public function removeCritere(Critere $critere): self
+    {
+        if ($this->criteres->removeElement($critere)) {
+            $critere->removeAtelier($this);
+        }
+
         return $this;
     }
 

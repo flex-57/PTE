@@ -33,6 +33,7 @@ class DomaineCrudController extends BaseCrudController
             TextField::new('nom'),
             TextareaField::new('description'),
             AssociationField::new('metiers', 'Métiers')->hideOnForm(),
+            AssociationField::new('ateliers', 'Ateliers')->hideOnForm(),
         ];
     }
 }

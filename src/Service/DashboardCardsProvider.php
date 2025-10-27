@@ -2,16 +2,14 @@
 
 namespace App\Service;
 
-use App\Controller\Admin\UserCrudController;
-use App\Controller\Admin\DomaineCrudController;
+use App\Controller\Admin\AtelierCrudController;
+use App\Controller\Admin\CritereCrudController;
 use App\Controller\Admin\MetierCrudController;
-use App\Controller\Admin\EvaluationCrudController;
-use App\Controller\Admin\CritereMetierCrudController;
-use App\Controller\Admin\CritereEvaluationCrudController;
-use App\Entity\CritereEvaluation;
-use App\Entity\CritereMetier;
+use App\Controller\Admin\DomaineCrudController;
+use App\Controller\Admin\UserCrudController;
+use App\Entity\Atelier;
+use App\Entity\Critere;
 use App\Entity\Domaine;
-use App\Entity\Evaluation;
 use App\Entity\Metier;
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
@@ -54,34 +52,24 @@ class DashboardCardsProvider
                 'badge_color' => '#ef4444',
             ],
             [
-                'title' => 'Évaluations',
-                'description' => 'Gestion des évaluations',
-                'count' => $this->em->getRepository(Evaluation::class)->count([]),
-                'controller' => EvaluationCrudController::class,
+                'title' => 'Ateliers',
+                'description' => 'Gestion des ateliers',
+                'count' => $this->em->getRepository(Atelier::class)->count([]),
+                'controller' => AtelierCrudController::class,
                 'icon' => 'fas fa-star',
                 'gradient_start' => '#ecfdf5',
                 'gradient_end' => '#d1fae5',
                 'badge_color' => '#10b981',
             ],
             [
-                'title' => 'Critères Métiers',
-                'description' => 'Gestion des critères métiers',
-                'count' => $this->em->getRepository(CritereMetier::class)->count([]),
-                'controller' => CritereMetierCrudController::class,
+                'title' => 'Critères',
+                'description' => 'Gestion des critères',
+                'count' => $this->em->getRepository(Critere::class)->count([]),
+                'controller' => CritereCrudController::class,
                 'icon' => 'fas fa-check',
                 'gradient_start' => '#f3f4f6',
                 'gradient_end' => '#e5e7eb',
                 'badge_color' => '#6b7280',
-            ],
-            [
-                'title' => 'Critères Évaluations',
-                'description' => 'Gestion des critères d\'évaluation',
-                'count' => $this->em->getRepository(CritereEvaluation::class)->count([]),
-                'controller' => CritereEvaluationCrudController::class,
-                'icon' => 'fas fa-check-circle',
-                'gradient_start' => '#ede9fe',
-                'gradient_end' => '#ddd6fe',
-                'badge_color' => '#7c3aed',
             ],
         ];
     }
