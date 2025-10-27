@@ -26,7 +26,7 @@ class Metier
     #[ORM\JoinColumn(nullable: false)]
     private ?Domaine $domaine = null;
 
-    #[ORM\ManyToMany(inversedBy: 'metiers', targetEntity: CritereMetier::class, cascade: ['persist'])]
+    #[ORM\ManyToMany(inversedBy: 'metiers', targetEntity: Critere::class, cascade: ['persist'])]
     private Collection $criteres;
 
     public function __construct()
@@ -75,13 +75,13 @@ class Metier
         return $this;
     }
 
-    /** @return Collection<int, CritereMetier> */
+    /** @return Collection<int, Critere> */
     public function getCriteres(): Collection
     {
         return $this->criteres;
     }
 
-    public function addCritere(CritereMetier $critere): self
+    public function addCritere(Critere $critere): self
     {
         if (!$this->criteres->contains($critere)) {
             $this->criteres->add($critere);
@@ -91,7 +91,7 @@ class Metier
         return $this;
     }
 
-    public function removeCritere(CritereMetier $critere): self
+    public function removeCritere(Critere $critere): self
     {
         if ($this->criteres->removeElement($critere)) {
             $critere->removeMetier($this);

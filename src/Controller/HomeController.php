@@ -2,10 +2,9 @@
 
 namespace App\Controller;
 
-use App\Repository\CritereEvaluationRepository;
-use App\Repository\CritereMetierRepository;
+use App\Repository\CritereRepository;
 use App\Repository\DomaineRepository;
-use App\Repository\EvaluationRepository;
+use App\Repository\AtelierRepository;
 use App\Repository\MetierRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -44,38 +43,26 @@ class HomeController extends AbstractController
         return $this->render('home/metier.html.twig', ['metier' => $metier]);
     }
 
-    #[Route('/critere-metier/{id}', name: 'critere_metier_show')]
-    public function showCritereMetier($id, CritereMetierRepository $repo): Response
+    #[Route('/atelier/{id}', name: 'atelier_show')]
+    public function showAtelier($id, AtelierRepository $repo): Response
     {
-        $critereMetier = $repo->find($id);
-
-        if (!$critereMetier) {
-            throw $this->createNotFoundException('Critère métier non trouvé');
+        $atelier = $repo->find($id);
+        if (!$atelier) {
+            throw $this->createNotFoundException('Atelier non trouvé');
         }
 
-        return $this->render('home/critere_metier.html.twig', ['critere_metier' => $critereMetier]);
+        return $this->render('home/atelier.html.twig', ['atelier' => $atelier]);
     }
 
-    #[Route('/evaluation/{id}', name: 'evaluation_show')]
-    public function showEvaluation($id, EvaluationRepository $repo): Response
+    #[Route('/critere/{id}', name: 'critere_show')]
+    public function showCritere($id, CritereRepository $repo): Response
     {
-        $evaluation = $repo->find($id);
-        if (!$evaluation) {
-            throw $this->createNotFoundException('Évaluation non trouvée');
+        $critere = $repo->find($id);
+
+        if (!$critere) {
+            throw $this->createNotFoundException('Critère non trouvé');
         }
 
-        return $this->render('home/evaluation.html.twig', ['evaluation' => $evaluation]);
-    }
-
-    #[Route('/critere-evaluation/{id}', name: 'critere_evaluation_show')]
-    public function showCritereEvaluation($id, CritereEvaluationRepository $repo): Response
-    {
-        $critereEvaluation = $repo->find($id);
-
-        if (!$critereEvaluation) {
-            throw $this->createNotFoundException('Critère évaluation non trouvé');
-        }
-
-        return $this->render('home/critere_evaluation.html.twig', ['critere_evaluation' => $critereEvaluation]);
+        return $this->render('home/critere.html.twig', ['critere' => $critere]);
     }
 }

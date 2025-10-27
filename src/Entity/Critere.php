@@ -2,14 +2,14 @@
 
 namespace App\Entity;
 
-use App\Repository\CritereMetierRepository;
+use App\Repository\CritereRepository;
 use App\Utils\StringUtils;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: CritereMetierRepository::class)]
-class CritereMetier
+#[ORM\Entity(repositoryClass: CritereRepository::class)]
+class Critere
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -25,9 +25,13 @@ class CritereMetier
     #[ORM\ManyToMany(targetEntity: Metier::class, mappedBy: 'criteres')]
     private Collection $metiers;
 
+    #[ORM\ManyToMany(targetEntity: Atelier::class, mappedBy: 'criteres')]
+    private Collection $atelier;
+
     public function __construct()
     {
         $this->metiers = new ArrayCollection();
+        $this->atelier = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -78,6 +82,31 @@ class CritereMetier
     {
         if ($this->metiers->removeElement($metier)) {
             $metier->removeCritere($this);
+        }
+        return $this;
+    }
+
+    /**
+     * @return Collection|Atelier[]
+     */
+    public function getAteliers(): Collection
+    {
+        return $this->atelier;
+    }
+
+    public function addAtelier(Atelier $atelier): self
+    {
+        if (!$this->atelier->contains($atelier)) {
+            $this->atelier->add($atelier);
+            $atelier->addCritere($this);
+        }
+        return $this;
+    }
+
+    public function removeAtelier(Atelier $atelier): self
+    {
+        if ($this->atelier->removeElement($atelier)) {
+            $atelier->removeCritere($this);
         }
         return $this;
     }

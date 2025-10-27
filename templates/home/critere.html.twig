@@ -1,32 +1,32 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-	{{ critere_evaluation.nom }}
+	{{ critere.nom }}
 {% endblock %}
 
 {% block body %}
-	<h1 class="text-3xl font-bold mb-4 text-gray-800">Critère évaluation :
-		{{ critere_evaluation.nom }}
+	<h1 class="text-3xl font-bold mb-4 text-gray-800">Critère :
+		{{ critere.nom }}
 	</h1>
 	<section class="mb-6">
 		<h2 class="text-2xl font-semibold">Description</h2>
-		<p class="mt-2 text-gray-700">{{ critere_evaluation.description|default('') }}</p>
+		<p class="mt-2 text-gray-700">{{ critere.description|default('') }}</p>
 	</section>
 
 	<section class="mb-10">
-		<h2 class="text-2xl font-semibold mb-4">Critères</h2>
-		{% if critere_evaluation.evaluations|length > 0 %}
+		<h2 class="text-2xl font-semibold mb-4">Métiers associés</h2>
+		{% if critere.metiers|length > 0 %}
 			<div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-				{% for m in critere_evaluation.evaluations %}
+				{% for m in critere.metiers %}
 					{% set card_params = {
                         link: path('metier_show', {'id': m.id}),
                         icon: 'fas fa-list',
                         title: m.nom,
-                        description: cm.description|default(''),
+                        description: m.description|default(''),
                         badges: [
-                            {'name':'Métier', 'count': m.criteres|length},
+                            {'name':'Critère', 'count': m.criteres|length},
                         ],
-                        color: '#dd890a',
+                        color: '#2b7c64',
                     } %}
 					{% include '_includes/_card.html.twig' with card_params %}
 				{% endfor %}

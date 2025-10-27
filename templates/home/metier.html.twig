@@ -26,7 +26,7 @@
 			<div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
 				{% for cm in metier.criteres %}
 					{% set card_params = {
-                        link: path('critere_metier_show', {'id': cm.id}),
+                        link: path('critere_show', {'id': cm.id}),
                         icon: 'fas fa-list',
                         title: cm.nom,
                         description: cm.description|default(''),
@@ -39,7 +39,7 @@
 				{% endfor %}
 			</div>
 		{% else %}
-			<p class="text-gray-500">Aucun critère de métier disponible.</p>
+			<p class="text-gray-500">Aucun critère disponible.</p>
 		{% endif %}
 	</section>
 {% endblock %}

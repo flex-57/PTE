@@ -26,7 +26,7 @@ class UserCrudController extends BaseCrudController
         return $crud
             ->setPageTitle(Crud::PAGE_INDEX, 'Liste des utilisateurs')
             ->setPageTitle(Crud::PAGE_NEW, 'Ajouter un utilisateur')
-            ->setPageTitle(Crud::PAGE_EDIT, 'Modifier l\'utilisateur');
+            ->setPageTitle(Crud::PAGE_EDIT, 'Modifier l’utilisateur');
     }
 
     public function configureFields(string $pageName): iterable

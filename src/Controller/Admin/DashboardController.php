@@ -2,10 +2,9 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\CritereEvaluation;
-use App\Entity\CritereMetier;
+use App\Entity\Critere;
 use App\Entity\Domaine;
-use App\Entity\Evaluation;
+use App\Entity\Atelier;
 use App\Entity\Metier;
 use App\Entity\User;
 use App\Service\DashboardCardsProvider;
@@ -41,8 +40,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Utilisateurs', 'fas fa-user', User::class);
         yield MenuItem::linkToCrud('Domaines', 'fas fa-list', Domaine::class);
         yield MenuItem::linkToCrud('Métiers', 'fas fa-briefcase', Metier::class);
-        yield MenuItem::linkToCrud('Critères métiers', 'fas fa-check', CritereMetier::class);
-        yield MenuItem::linkToCrud('Évaluations', 'fas fa-star', Evaluation::class);
-        yield MenuItem::linkToCrud('Critères évaluations', 'fas fa-check-circle', CritereEvaluation::class);
+        yield MenuItem::linkToCrud('Ateliers', 'fas fa-star', Atelier::class);
+        yield MenuItem::linkToCrud('Critères', 'fas fa-check', Critere::class);
     }
 }

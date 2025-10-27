@@ -2,38 +2,36 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\CritereMetier;
+use App\Entity\Atelier;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
-use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 
-class CritereMetierCrudController extends BaseCrudController
+class AtelierCrudController extends BaseCrudController
 {
     public static function getEntityFqcn(): string
     {
-        return CritereMetier::class;
+        return Atelier::class;
     }
 
     public function configureCrud(Crud $crud): Crud
     {
         return $crud
-            ->setPageTitle(Crud::PAGE_INDEX, 'Liste des critères métier')
-            ->setPageTitle(Crud::PAGE_NEW, 'Ajouter un critère métier')
-            ->setPageTitle(Crud::PAGE_EDIT, 'Modifier le critère métier')
-            ->setPageTitle(Crud::PAGE_DETAIL, 'Détails du critère métier');
+            ->setPageTitle(Crud::PAGE_INDEX, 'Liste des ateliers')
+            ->setPageTitle(Crud::PAGE_NEW, 'Ajouter un atelier')
+            ->setPageTitle(Crud::PAGE_EDIT, 'Modifier l\’atelier')
+            ->setPageTitle(Crud::PAGE_DETAIL, 'Détails de l’atelier');
     }
-
 
     public function configureFields(string $pageName): iterable
     {
         return [
             IdField::new('id')->hideOnForm(),
-            TextField::new('nom'),
+            TextField::new('titre'),
             TextareaField::new('description'),
-            AssociationField::new('metier', 'Métier'),
+            AssociationField::new('domaine'),
         ];
     }
 }
