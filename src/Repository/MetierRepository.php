@@ -13,14 +13,25 @@ class MetierRepository extends ServiceEntityRepository
         parent::__construct($registry, Metier::class);
     }
 
-     public function searchDeep(string $query): array
+    public function findAll(): array
     {
-        $qb = $this->createQueryBuilder('m')
-            ->where('m.nom LIKE :query')
-            ->setParameter('query', '%' . $query . '%')
+        return $this->createQueryBuilder('m')
+            ->leftJoin('m.domaine', 'd')->addSelect('d')
+            ->leftJoin('m.criteres', 'c')->addSelect('c')
+            ->orderBy('m.nom', 'ASC')
             ->getQuery()
             ->getResult();
+    }
 
-        return $qb;
+     public function searchDeep(string $query): array
+    {
+        return $this->createQueryBuilder('m')
+            ->leftJoin('m.domaine', 'd')->addSelect('d')
+            ->leftJoin('m.criteres', 'c')->addSelect('c')
+            ->where('m.nom LIKE :q OR d.nom LIKE :q OR c.nom LIKE :q')
+            ->setParameter('q', '%' . $query . '%')
+            ->orderBy('m.nom', 'ASC')
+            ->getQuery()
+            ->getResult();
     }
 }

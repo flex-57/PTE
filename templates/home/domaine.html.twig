@@ -16,46 +16,40 @@
 	<section class="mb-10">
 		<h2 class="text-2xl font-semibold mb-4">Métiers</h2>
 		{% if domaine.metiers|length > 0 %}
-			<div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+			<div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
 				{% for m in domaine.metiers %}
 					{% set card_params = {
                         link: path('metier_show', {'id': m.id}),
-                        icon: 'fas fa-briefcase',
                         title: m.nom,
-                        description: m.description|default('Aucune description'),
-                        badges: [
-                            {'name':'Critère', 'count': m.criteres|length},
+                        description: m.description|length > 80 ? m.description|slice(0, 80) ~ '...' : m.description,
+                        details: [
+                            {'key':'Critères', 'value': m.criteres|length},
                         ],
-                        color: '#265e79',
+                        color: '#00495f',
                     } %}
 					{% include '_includes/_card.html.twig' with card_params %}
 				{% endfor %}
 			</div>
-		{% else %}
-			<p class="text-gray-500">Aucun métier disponible.</p>
 		{% endif %}
 	</section>
 
 	<section class="mb-10">
 		<h2 class="text-2xl font-semibold mb-4">Ateliers</h2>
 		{% if domaine.ateliers|length > 0 %}
-			<div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-				{% for e in domaine.ateliers %}
+			<div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+				{% for a in domaine.ateliers %}
 					{% set card_params = {
-                        link: path('atelier_show', {'id': e.id}),
-                        icon: 'fas fa-check-circle',
-                        title: e.nom,
-                        description: e.description|default('Aucune description'),
-                        badges: [
-                            {'name':'Critère', 'count': e.criteres|length},
+                        link: path('atelier_show', {'id': a.id}),
+                        title: a.nom,
+                        description: a.description|length > 80 ? a.description|slice(0, 80) ~ '...' : a.description,
+                        details: [
+                            {'key':'Critères', 'value': a.criteres|length},
                         ],
-                        color: '#217a4e',
+                        color: '#007239',
                     } %}
 					{% include '_includes/_card.html.twig' with card_params %}
 				{% endfor %}
 			</div>
-		{% else %}
-			<p class="text-gray-500">Aucun atelier disponible.</p>
 		{% endif %}
 	</section>
 {% endblock %}

@@ -13,14 +13,25 @@ class AtelierRepository extends ServiceEntityRepository
         parent::__construct($registry, Atelier::class);
     }
 
-     public function searchDeep(string $query): array
+    public function findAll(): array
     {
-        $qb = $this->createQueryBuilder('a')
-            ->where('a.nom LIKE :query')
-            ->setParameter('query', '%' . $query . '%')
+        return $this->createQueryBuilder('a')
+            ->leftJoin('a.domaine', 'd')->addSelect('d')
+            ->leftJoin('a.criteres', 'c')->addSelect('c')
+            ->orderBy('a.nom', 'ASC')
             ->getQuery()
             ->getResult();
+    }
 
-        return $qb;
+     public function searchDeep(string $query): array
+    {
+        return $this->createQueryBuilder('a')
+            ->leftJoin('a.domaine', 'd')->addSelect('d')
+            ->leftJoin('a.criteres', 'c')->addSelect('c')
+            ->where('a.nom LIKE :q OR d.nom LIKE :q OR c.nom LIKE :q')
+            ->setParameter('q', '%' . $query . '%')
+            ->orderBy('a.nom', 'ASC')
+            ->getQuery()
+            ->getResult();
     }
 }

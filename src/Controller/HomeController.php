@@ -21,7 +21,7 @@ class HomeController extends AbstractController
     }
 
     #[Route('/domaine/{id}', name: 'domaine_show')]
-    public function showDomaine($id, DomaineRepository $repo): Response
+    public function showDomaine(int $id, DomaineRepository $repo): Response
     {
         $domaine = $repo->find($id);
         if (!$domaine) {
@@ -32,7 +32,7 @@ class HomeController extends AbstractController
     }
 
     #[Route('/metier/{id}', name: 'metier_show')]
-    public function showMetier($id, MetierRepository $repo): Response
+    public function showMetier(int $id, MetierRepository $repo): Response
     {
         $metier = $repo->find($id);
 
@@ -44,7 +44,7 @@ class HomeController extends AbstractController
     }
 
     #[Route('/atelier/{id}', name: 'atelier_show')]
-    public function showAtelier($id, AtelierRepository $repo): Response
+    public function showAtelier(int $id, AtelierRepository $repo): Response
     {
         $atelier = $repo->find($id);
         if (!$atelier) {
@@ -55,7 +55,7 @@ class HomeController extends AbstractController
     }
 
     #[Route('/critere/{id}', name: 'critere_show')]
-    public function showCritere($id, CritereRepository $repo): Response
+    public function showCritere(int $id, CritereRepository $repo): Response
     {
         $critere = $repo->find($id);
 

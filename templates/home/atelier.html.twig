@@ -23,23 +23,22 @@
 	<section class="mb-10">
 		<h2 class="text-2xl font-semibold mb-4">Critères</h2>
 		{% if atelier.criteres|length > 0 %}
-			<div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-				{% for ce in atelier.criteres %}
+			<div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+				{% for c in atelier.criteres %}
 					{% set card_params = {
-                        link: path('critere_show', {'id': ce.id}),
+                        link: path('critere_show', {'id': c.id}),
                         icon: 'fas fa-check',
-                        title: ce.nom,
-                        description: ce.description|default(''),
-                        badges: [
-                            {'name':'Critère', 'count': ce.ateliers|length},
+                        title: c.nom,
+                        description: c.description|length > 80 ? c.description|slice(0, 80) ~ '...' : c.description,
+                        details: [
+                            {'key':'Métiers', 'value': c.metiers|length},
+                            {'key':'Ateliers', 'value': c.ateliers|length},
                         ],
-                        color: '#2b7c6e',
+                        color: '#007239',
                     } %}
 					{% include '_includes/_card.html.twig' with card_params %}
 				{% endfor %}
 			</div>
-		{% else %}
-			<p class="text-gray-500">Aucun critère disponible.</p>
 		{% endif %}
 	</section>
 {% endblock %}

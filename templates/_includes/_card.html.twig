@@ -1,44 +1,41 @@
-<a href="{{ link|default('#') }}"
-    class="group flex flex-col justify-between rounded-md shadow-sm shadow-gray-300 hover:shadow-lg hover:shadow-gray-400 transition-shadow duration-300 h-full overflow-hidden"
-    style="background: linear-gradient(150deg,
-        {{ color is defined ? color ~ '20' : 'rgba(255,255,255,0.95)' }} 0%,
-        {{ color is defined ? color ~ '0A' : 'rgba(245,245,245,0.95)' }} 100%);
-">
+{# Card moderne avec gradient dynamique et détails #}
 
-	<div class="p-4 pb-3 flex flex-col flex-grow justify-between">
+<a href="{{ link }}"
+    class="group flex flex-col justify-between border rounded-md shadow-sm shadow-gray-300 transition-all duration-300 hover:shadow-lg hover:shadow-gray-400"
+    style="border-color: {{ color }};
+            color: {{ color }};
+            background: linear-gradient(160deg, {{ color }}22 0%, {{ color }}08 100%);">
 
-		{# === TITLE === #}
-		<div class="mb-3">
-			<h2 class="text-xl font-bold" style="color: {{ color|default('#1f2937') }};">
-				{% if icon is defined and icon %}
-					<i class="{{ icon }}"></i>
-				{% endif %}
-				{{ title|default('Sans titre') }}
-			</h2>
-		</div>
+    <div class="pt-3 pb-2 px-4 flex flex-col flex-grow justify-between">
+        {# Titre #}
+        <h3 class="text-2xl font-bold mb-2">{{ title }}</h3>
 
-        {# === DESCRIPTION === #}
-		<div class="mb-4 text-sm">
-			<p style="color: {{ color|default('#1f2937') }};">
-				{{ description|default('Aucune description disponible.') }}
-			</p>
-		</div>
+        {# Description optionnelle #}
+        {% if description %}
+            <p class="text-gray-600 text-sm">{{ description }}</p>
+        {% endif %}
 
-        {# === BADGES === #}
-		<div>
-			{% if badges is defined and badges|length > 0 %}
-				{% for badge in badges %}
-					<div class="inline-block px-3 py-1 text-xs font-medium rounded-xl" style="
-                        background-color: {{ color|default('#1f2937') }};
-                        color: #fff;
-                    ">
-						{{ badge.count }} {{ badge.name }}{{ badge.count > 1 ?  's' : '' }}
-					</div>
-				{% endfor %}
-			{% endif %}
-		</div>
-	</div>
-
-	{# === BARRE ANIMEE AU HOVER === #}
-	<div class="h-1 w-0 group-hover:w-full transition-all duration-300" style="background-color: {{ color|default('#1f2937') }};"></div>
+        {# Détails dynamiques #}
+        {% if details is defined and details is not empty %}
+            <div class="flex justify-between gap-4">
+            {% for detail in details %}
+                <div class="inline-block mt-3">
+                    <span class="font-semibold" style="color: {{ color }};">{{ detail.key }}:</span>
+                    {% if detail.value is iterable %}
+                        <span class="text-gray-600 text-sm">
+                            {{ detail.value|map(item => item.nom)|join(', ') }}
+                        </span>
+                    {% else %}
+                        <span class="font-semibold text-gray-600 text-md">{{ detail.value }}</span>
+                    {% endif %}
+                </div>
+            {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+    {# Barre animée en bas #}
+    <span class="h-[3px] w-0 transition-all duration-300 group-hover:w-full"
+          style="background-color: {{ color }};">
+    </span>
 </a>
+

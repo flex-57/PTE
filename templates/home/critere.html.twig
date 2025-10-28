@@ -16,23 +16,40 @@
 	<section class="mb-10">
 		<h2 class="text-2xl font-semibold mb-4">Métiers associés</h2>
 		{% if critere.metiers|length > 0 %}
-			<div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+			<div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
 				{% for m in critere.metiers %}
 					{% set card_params = {
                         link: path('metier_show', {'id': m.id}),
-                        icon: 'fas fa-list',
                         title: m.nom,
-                        description: m.description|default(''),
-                        badges: [
-                            {'name':'Critère', 'count': m.criteres|length},
+                        description: m.description|length > 80 ? m.description|slice(0, 80) ~ '...' : m.description,
+                        details: [
+                            {'key':'Critères', 'value': m.criteres|length},
                         ],
-                        color: '#2b7c64',
+                        color: '#2f9600',
                     } %}
 					{% include '_includes/_card.html.twig' with card_params %}
 				{% endfor %}
 			</div>
-		{% else %}
-			<p class="text-gray-500">Aucun critère de métier disponible.</p>
+		{% endif %}
+	</section>
+
+	<section class="mb-10">
+		<h2 class="text-2xl font-semibold mb-4">Ateliers associés</h2>
+		{% if critere.ateliers|length > 0 %}
+			<div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+				{% for a in critere.ateliers %}
+					{% set card_params = {
+                        link: path('atelier_show', {'id': a.id}),
+                        title: a.nom,
+                        description: a.description|length > 80 ? a.description|slice(0, 80) ~ '...' : a.description,
+                        details: [
+                            {'key':'Critères', 'value': a.criteres|length},
+                        ],
+                        color: '#b89c00',
+                    } %}
+					{% include '_includes/_card.html.twig' with card_params %}
+				{% endfor %}
+			</div>
 		{% endif %}
 	</section>
 {% endblock %}

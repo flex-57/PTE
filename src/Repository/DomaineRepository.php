@@ -13,14 +13,25 @@ class DomaineRepository extends ServiceEntityRepository
         parent::__construct($registry, Domaine::class);
     }
 
-    public function searchDeep(string $query): array
+    public function findAll(): array
     {
-        $qb = $this->createQueryBuilder('d')
-            ->where('d.nom LIKE :query')
-            ->setParameter('query', '%' . $query . '%')
+        return $this->createQueryBuilder('d')
+            ->leftJoin('d.metiers', 'm')->addSelect('m')
+            ->leftJoin('d.ateliers', 'a')->addSelect('a')
+            ->orderBy('d.nom', 'ASC')
             ->getQuery()
             ->getResult();
+    }
 
-        return $qb;
+    public function searchDeep(string $query): array
+    {
+        return $this->createQueryBuilder('d')
+            ->leftJoin('d.metiers', 'm')->addSelect('m')
+            ->leftJoin('d.ateliers', 'a')->addSelect('a')
+            ->where('d.nom LIKE :q OR m.nom LIKE :q OR a.nom LIKE :q')
+            ->setParameter('q', '%' . $query . '%')
+            ->orderBy('d.nom', 'ASC')
+            ->getQuery()
+            ->getResult();
     }
 }

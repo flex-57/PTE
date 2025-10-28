@@ -11,18 +11,17 @@
 			<p class="text-center">Aucun domaine trouvé.</p>
 		</div>
 	{% else %}
-		<div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+		<div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
 			{% for d in domaines %}
 				{% set card_params = {
                     link: path('domaine_show', {'id': d.id}),
-                    icon: 'fas fa-folder-open',
                     title: d.nom,
-                    description: d.description|length > 50 ? d.description|slice(0, 50) ~ '...' : d.description,
-                    badges: [
-                        {'name':'Metier', 'count': d.metiers|length},
-                        {'name':'Atelier', 'count': d.ateliers|length}
+                    description: d.description|length > 80 ? d.description|slice(0, 80) ~ '...' : d.description,
+                    details: [
+                        {'key':'Métier', 'value': d.metiers|length},
+                        {'key':'Atelier', 'value': d.ateliers|length},
                     ],
-                    color: '#1f5c6f',
+                    color: '#141414',
                 } %}
 				{% include '_includes/_card.html.twig' with card_params %}
 			{% endfor %}
