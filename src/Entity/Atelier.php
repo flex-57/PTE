@@ -22,8 +22,7 @@ class Atelier
     #[ORM\Column(type: 'text', nullable: true)]
     private ?string $description = null;
 
-    #[ORM\ManyToOne(targetEntity: Domaine::class, inversedBy: 'atelier')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\ManyToOne(targetEntity: Domaine::class, inversedBy: 'ateliers')]
     private ?Domaine $domaine = null;
 
     #[ORM\ManyToMany(inversedBy: 'ateliers', targetEntity: Critere::class, cascade: ['persist'])]

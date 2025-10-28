@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-	{{ metier.nom }}
+	{{ parent() }} :: {{ metier.nom }}
 {% endblock %}
 
 {% block body %}

@@ -5,16 +5,16 @@
 		<meta name="viewport" content="width=device-width,initial-scale=1"/>
 		<title>
 			{% block title %}
-				EPT
+				{{ app_name }}
 			{% endblock %}
 		</title>
 		{% block stylesheets %}{% endblock %}
 		{% block javascripts %}
 			{% block importmap %}
 				{{ importmap('app') }}
-				<script src="https://cdn.tailwindcss.com"></script>
-				<script src="https://kit.fontawesome.com/228967fa11.js" crossorigin="anonymous"></script>
 			{% endblock %}
+			<script src="https://cdn.tailwindcss.com"></script>
+			<script src="https://kit.fontawesome.com/228967fa11.js" crossorigin="anonymous"></script>
 		{% endblock %}
 	</head>
 
@@ -28,7 +28,7 @@
 			<footer class="text-center text-sm text-gray-600 py-6">
 				©
 				{{ 'now'|date('Y') }}
-				EPT — Tous droits réservés.
+				{{ app_name }} — Tous droits réservés.
 			</footer>
 		</body>
 	</html>

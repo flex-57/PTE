@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-	{{ atelier.nom }}
+	{{ parent() }} :: {{ atelier.nom }}
 {% endblock %}
 
 {% block body %}

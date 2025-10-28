@@ -26,12 +26,12 @@ class Critere
     private Collection $metiers;
 
     #[ORM\ManyToMany(targetEntity: Atelier::class, mappedBy: 'criteres')]
-    private Collection $atelier;
+    private Collection $ateliers;
 
     public function __construct()
     {
         $this->metiers = new ArrayCollection();
-        $this->atelier = new ArrayCollection();
+        $this->ateliers = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -91,13 +91,13 @@ class Critere
      */
     public function getAteliers(): Collection
     {
-        return $this->atelier;
+        return $this->ateliers;
     }
 
     public function addAtelier(Atelier $atelier): self
     {
-        if (!$this->atelier->contains($atelier)) {
-            $this->atelier->add($atelier);
+        if (!$this->ateliers->contains($atelier)) {
+            $this->ateliers->add($atelier);
             $atelier->addCritere($this);
         }
         return $this;
@@ -105,7 +105,7 @@ class Critere
 
     public function removeAtelier(Atelier $atelier): self
     {
-        if ($this->atelier->removeElement($atelier)) {
+        if ($this->ateliers->removeElement($atelier)) {
             $atelier->removeCritere($this);
         }
         return $this;

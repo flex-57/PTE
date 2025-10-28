@@ -12,4 +12,15 @@ class MetierRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Metier::class);
     }
+
+     public function searchDeep(string $query): array
+    {
+        $qb = $this->createQueryBuilder('m')
+            ->where('m.nom LIKE :query')
+            ->setParameter('query', '%' . $query . '%')
+            ->getQuery()
+            ->getResult();
+
+        return $qb;
+    }
 }
