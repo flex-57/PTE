@@ -7,11 +7,13 @@
 				<path stroke-linecap="round" stroke-linejoin="round" d="M3 9.75L12 3l9 6.75v9.75A1.5 1.5 0 0 1 19.5 21h-15A1.5 1.5 0 0 1 3 19.5V9.75z"/>
 				<path stroke-linecap="round" stroke-linejoin="round" d="M9 21V12h6v9"/>
 			</svg>
-			<span>EPT</span>
+			<span>{{ app_name }}</span>
 		</a>
+		
 
 		<!-- Menu utilisateur + thème -->
 		<div class="flex items-center space-x-4">
+		{% include '_includes/_search.html.twig' %}
 			{% if app.user %}
 				<div class="relative group">
 					<button class="flex items-center space-x-2 text-gray-700 dark:text-gray-200 hover:text-blue-600 transition">
@@ -23,6 +25,7 @@
 							<path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
 						</svg>
 					</button>
+
 
 					<!-- Dropdown -->
 					<div class="absolute right-0 mt-2 py-2 w-52 bg-white dark:bg-gray-700 rounded-md shadow-lg invisible group-hover:visible opacity-0 group-hover:opacity-100 transition-all z-10">

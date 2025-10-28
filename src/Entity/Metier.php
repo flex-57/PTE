@@ -23,7 +23,6 @@ class Metier
     private ?string $description = null;
 
     #[ORM\ManyToOne(targetEntity: Domaine::class, inversedBy: 'metiers')]
-    #[ORM\JoinColumn(nullable: false)]
     private ?Domaine $domaine = null;
 
     #[ORM\ManyToMany(inversedBy: 'metiers', targetEntity: Critere::class, cascade: ['persist'])]

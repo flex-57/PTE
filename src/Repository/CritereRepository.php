@@ -12,4 +12,15 @@ class CritereRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Critere::class);
     }
+
+     public function searchDeep(string $query): array
+    {
+        $qb = $this->createQueryBuilder('c')
+            ->where('c.nom LIKE :query')
+            ->setParameter('query', '%' . $query . '%')
+            ->getQuery()
+            ->getResult();
+
+        return $qb;
+    }
 }
