@@ -67,5 +67,5 @@ volumes:
 
 networks:
   symfony_net:
-    driver: bridge
+    driver: bridge 
 
