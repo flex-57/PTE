@@ -5,21 +5,22 @@
 {% endblock %}
 
 {% block body %}
-<div class="container mx-auto px-4 py-6">
     <h1 class="text-3xl font-bold mb-6 text-gray-800">Résultat de la recherche : "{{ query }}"</h1>
 
     {% if domaines is not empty %}
         <section class="mb-8">
             <h2 class="text-2xl font-semibold mb-4 text-blue-700">Domaines</h2>
-            <ul class="space-y-4">
+            <ul class="grid gap-3 grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
                 {% for domaine in domaines %}
                     <li class="p-4 border border-gray-200 rounded-md shadow-sm hover:shadow-md transition">
-                        <h3 class="text-xl font-bold">{{ domaine.nom }}</h3>
+                        <h3 class="text-xl font-bold">
+                            {{ domaine.nom|highlight_query(query)|raw }}
+                        </h3>
                         {% if domaine.metiers|length > 0 %}
-                            <p class="text-sm mt-2 text-gray-500">Métiers : {{ domaine.metiers|map(m => m.nom)|join(', ') }}</p>
+                            <p class="text-sm mt-2 text-gray-500">Métiers : {{ domaine.metiers|map(m => m.nom|highlight_query(query))|join(', ')|raw }}</p>
                         {% endif %}
                         {% if domaine.ateliers|length > 0 %}
-                            <p class="text-sm mt-1 text-gray-500">Ateliers : {{ domaine.ateliers|map(a => a.nom)|join(', ') }}</p>
+                            <p class="text-sm mt-1 text-gray-500">Ateliers : {{ domaine.ateliers|map(a => a.nom|highlight_query(query))|join(', ')|raw }}</p>
                         {% endif %}
                     </li>
                 {% endfor %}
@@ -30,13 +31,13 @@
     {% if metiers is not empty %}
         <section class="mb-8">
             <h2 class="text-2xl font-semibold mb-4 text-green-700">Métiers</h2>
-            <ul class="space-y-4">
+            <ul class="grid gap-3 grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
                 {% for metier in metiers %}
                     <li class="p-4 border border-gray-200 rounded-md shadow-sm hover:shadow-md transition">
-                        <h3 class="text-xl font-bold">{{ metier.nom }}</h3>
-                        <p class="text-sm mt-2 text-gray-500">Domaine : {{ metier.domaine.nom }}</p>
+                        <h3 class="text-xl font-bold">{{ metier.nom|highlight_query(query)|raw }}</h3>
+                        <p class="text-sm mt-2 text-gray-500">Domaine : {{ metier.domaine.nom|highlight_query(query)|raw }}</p>
                         {% if metier.criteres|length > 0 %}
-                            <p class="text-sm mt-1 text-gray-500">Critères : {{ metier.criteres|map(c => c.nom)|join(', ') }}</p>
+                            <p class="text-sm mt-1 text-gray-500">Critères : {{ metier.criteres|map(c => c.nom|highlight_query(query))|join(', ')|raw }}</p>
                         {% endif %}
                     </li>
                 {% endfor %}
@@ -47,13 +48,13 @@
     {% if ateliers is not empty %}
         <section class="mb-8">
             <h2 class="text-2xl font-semibold mb-4 text-purple-700">Ateliers</h2>
-            <ul class="space-y-4">
+            <ul class="grid gap-3 grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
                 {% for atelier in ateliers %}
                     <li class="p-4 border border-gray-200 rounded-md shadow-sm hover:shadow-md transition">
-                        <h3 class="text-xl font-bold">{{ atelier.nom }}</h3>
-                        <p class="text-sm mt-2 text-gray-500">Domaine : {{ atelier.domaine.nom }}</p>
+                        <h3 class="text-xl font-bold">{{ atelier.nom|highlight_query(query)|raw }}</h3>
+                        <p class="text-sm mt-2 text-gray-500">Domaine : {{ atelier.domaine.nom|highlight_query(query)|raw }}</p>
                         {% if atelier.criteres|length > 0 %}
-                            <p class="text-sm mt-1 text-gray-500">Critères : {{ atelier.criteres|map(c => c.nom)|join(', ') }}</p>
+                            <p class="text-sm mt-1 text-gray-500">Critères : {{ atelier.criteres|map(c => c.nom|highlight_query(query))|join(', ')|raw }}</p>
                         {% endif %}
                     </li>
                 {% endfor %}
@@ -64,15 +65,15 @@
     {% if criteres is not empty %}
         <section class="mb-8">
             <h2 class="text-2xl font-semibold mb-4 text-red-700">Critères</h2>
-            <ul class="space-y-4">
+            <ul class="grid gap-3 grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
                 {% for critere in criteres %}
                     <li class="p-4 border border-gray-200 rounded-md shadow-sm hover:shadow-md transition">
-                        <h3 class="text-xl font-bold">{{ critere.nom }}</h3>
+                        <h3 class="text-xl font-bold">{{ critere.nom|highlight_query(query)|raw }}</h3>
                         {% if critere.metiers|length > 0 %}
-                            <p class="text-sm mt-2 text-gray-500">Métiers associés : {{ critere.metiers|map(m => m.nom)|join(', ') }}</p>
+                            <p class="text-sm mt-2 text-gray-500">Métiers associés : {{ critere.metiers|map(m => m.nom|highlight_query(query))|join(', ')|raw }}</p>
                         {% endif %}
                         {% if critere.ateliers|length > 0 %}
-                            <p class="text-sm mt-1 text-gray-500">Ateliers associés : {{ critere.ateliers|map(a => a.nom)|join(', ') }}</p>
+                            <p class="text-sm mt-1 text-gray-500">Ateliers associés : {{ critere.ateliers|map(a => a.nom|highlight_query(query))|join(', ')|raw }}</p>
                         {% endif %}
                     </li>
                 {% endfor %}
@@ -83,5 +84,5 @@
     {% if domaines is empty and metiers is empty and ateliers is empty and criteres is empty %}
         <p class="text-gray-600">Aucun résultat trouvé pour votre recherche.</p>
     {% endif %}
-</div>
+
 {% endblock %}

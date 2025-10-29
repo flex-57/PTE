@@ -30,6 +30,10 @@
 					{% include '_includes/_card.html.twig' with card_params %}
 				{% endfor %}
 			</div>
+		{% else %}
+		<div class="p-6 bg-yellow-50 border border-yellow-200 rounded-lg text-yellow-700">
+			<p class="text-center">Aucun métier trouvé.</p>
+		</div>
 		{% endif %}
 	</section>
 
@@ -50,6 +54,10 @@
 					{% include '_includes/_card.html.twig' with card_params %}
 				{% endfor %}
 			</div>
+		{% else %}
+		<div class="p-6 bg-yellow-50 border border-yellow-200 rounded-lg text-yellow-700">
+			<p class="text-center">Aucun atelier trouvé.</p>
+		</div>
 		{% endif %}
 	</section>
 {% endblock %}
