@@ -19,16 +19,12 @@
 	</head>
 
 	<body class="text-gray-900 dark:text-gray-100 dark:bg-gray-900 transition-colors">
-
         {% include '_includes/_nav.html.twig' %}
 
-		<main class="container mx-auto mt-8 px-4"> {% block body %}{% endblock %}
-			</main>
+		<main class="container mx-auto mt-8 px-4"> 
+			{% block body %}{% endblock %}
+		</main>
 
-			<footer class="text-center text-sm text-gray-600 py-6">
-				©
-				{{ 'now'|date('Y') }}
-				{{ app_name }} — Tous droits réservés.
-			</footer>
-		</body>
-	</html>
+        {% include '_includes/_footer.html.twig' %}
+	</body>
+</html>

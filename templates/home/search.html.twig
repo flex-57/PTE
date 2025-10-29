@@ -12,17 +12,19 @@
             <h2 class="text-2xl font-semibold mb-4 text-blue-700">Domaines</h2>
             <ul class="grid gap-3 grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
                 {% for domaine in domaines %}
-                    <li class="p-4 border border-gray-200 rounded-md shadow-sm hover:shadow-md transition">
-                        <h3 class="text-xl font-bold">
-                            {{ domaine.nom|highlight_query(query)|raw }}
-                        </h3>
-                        {% if domaine.metiers|length > 0 %}
-                            <p class="text-sm mt-2 text-gray-500">Métiers : {{ domaine.metiers|map(m => m.nom|highlight_query(query))|join(', ')|raw }}</p>
-                        {% endif %}
-                        {% if domaine.ateliers|length > 0 %}
-                            <p class="text-sm mt-1 text-gray-500">Ateliers : {{ domaine.ateliers|map(a => a.nom|highlight_query(query))|join(', ')|raw }}</p>
-                        {% endif %}
-                    </li>
+                    <a href="{{ path('domaine_show', {'id': domaine.id}) }}" class="hover:shadow-md transition">
+                        <li class="p-4 border border-gray-200 rounded-md shadow-sm hover:shadow-md transition">
+                            <h3 class="text-xl font-bold">
+                                {{ domaine.nom|highlight_query(query)|raw }}
+                            </h3>
+                            {% if domaine.metiers|length > 0 %}
+                                <p class="text-sm mt-2 text-gray-500">Métiers : {{ domaine.metiers|map(m => m.nom|highlight_query(query))|join(', ')|raw }}</p>
+                            {% endif %}
+                            {% if domaine.ateliers|length > 0 %}
+                                <p class="text-sm mt-1 text-gray-500">Ateliers : {{ domaine.ateliers|map(a => a.nom|highlight_query(query))|join(', ')|raw }}</p>
+                            {% endif %}
+                        </li>
+                    </a>
                 {% endfor %}
             </ul>
         </section>
@@ -33,13 +35,15 @@
             <h2 class="text-2xl font-semibold mb-4 text-green-700">Métiers</h2>
             <ul class="grid gap-3 grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
                 {% for metier in metiers %}
-                    <li class="p-4 border border-gray-200 rounded-md shadow-sm hover:shadow-md transition">
-                        <h3 class="text-xl font-bold">{{ metier.nom|highlight_query(query)|raw }}</h3>
-                        <p class="text-sm mt-2 text-gray-500">Domaine : {{ metier.domaine.nom|highlight_query(query)|raw }}</p>
-                        {% if metier.criteres|length > 0 %}
-                            <p class="text-sm mt-1 text-gray-500">Critères : {{ metier.criteres|map(c => c.nom|highlight_query(query))|join(', ')|raw }}</p>
-                        {% endif %}
-                    </li>
+                    <a href="{{ path('metier_show', {'id': metier.id}) }}" class="hover:shadow-md transition">
+                        <li class="p-4 border border-gray-200 rounded-md shadow-sm hover:shadow-md transition">
+                            <h3 class="text-xl font-bold">{{ metier.nom|highlight_query(query)|raw }}</h3>
+                            <p class="text-sm mt-2 text-gray-500">Domaine : {{ metier.domaine.nom|highlight_query(query)|raw }}</p>
+                            {% if metier.criteres|length > 0 %}
+                                <p class="text-sm mt-1 text-gray-500">Critères : {{ metier.criteres|map(c => c.nom|highlight_query(query))|join(', ')|raw }}</p>
+                            {% endif %}
+                        </li>
+                    </a>
                 {% endfor %}
             </ul>
         </section>
@@ -50,13 +54,15 @@
             <h2 class="text-2xl font-semibold mb-4 text-purple-700">Ateliers</h2>
             <ul class="grid gap-3 grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
                 {% for atelier in ateliers %}
-                    <li class="p-4 border border-gray-200 rounded-md shadow-sm hover:shadow-md transition">
-                        <h3 class="text-xl font-bold">{{ atelier.nom|highlight_query(query)|raw }}</h3>
-                        <p class="text-sm mt-2 text-gray-500">Domaine : {{ atelier.domaine.nom|highlight_query(query)|raw }}</p>
-                        {% if atelier.criteres|length > 0 %}
-                            <p class="text-sm mt-1 text-gray-500">Critères : {{ atelier.criteres|map(c => c.nom|highlight_query(query))|join(', ')|raw }}</p>
-                        {% endif %}
-                    </li>
+                    <a href="{{ path('atelier_show', {'id': atelier.id}) }}" class="hover:shadow-md transition">
+                        <li class="p-4 border border-gray-200 rounded-md shadow-sm hover:shadow-md transition">
+                            <h3 class="text-xl font-bold">{{ atelier.nom|highlight_query(query)|raw }}</h3>
+                            <p class="text-sm mt-2 text-gray-500">Domaine : {{ atelier.domaine.nom|highlight_query(query)|raw }}</p>
+                            {% if atelier.criteres|length > 0 %}
+                                <p class="text-sm mt-1 text-gray-500">Critères : {{ atelier.criteres|map(c => c.nom|highlight_query(query))|join(', ')|raw }}</p>
+                            {% endif %}
+                        </li>
+                    </a>
                 {% endfor %}
             </ul>
         </section>
@@ -67,15 +73,17 @@
             <h2 class="text-2xl font-semibold mb-4 text-red-700">Critères</h2>
             <ul class="grid gap-3 grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
                 {% for critere in criteres %}
-                    <li class="p-4 border border-gray-200 rounded-md shadow-sm hover:shadow-md transition">
-                        <h3 class="text-xl font-bold">{{ critere.nom|highlight_query(query)|raw }}</h3>
-                        {% if critere.metiers|length > 0 %}
-                            <p class="text-sm mt-2 text-gray-500">Métiers associés : {{ critere.metiers|map(m => m.nom|highlight_query(query))|join(', ')|raw }}</p>
-                        {% endif %}
-                        {% if critere.ateliers|length > 0 %}
-                            <p class="text-sm mt-1 text-gray-500">Ateliers associés : {{ critere.ateliers|map(a => a.nom|highlight_query(query))|join(', ')|raw }}</p>
-                        {% endif %}
-                    </li>
+                    <a href="{{ path('critere_show', {'id': critere.id}) }}" class="hover:shadow-md transition">
+                        <li class="p-4 border border-gray-200 rounded-md shadow-sm hover:shadow-md transition">
+                            <h3 class="text-xl font-bold">{{ critere.nom|highlight_query(query)|raw }}</h3>
+                            {% if critere.metiers|length > 0 %}
+                                <p class="text-sm mt-2 text-gray-500">Métiers associés : {{ critere.metiers|map(m => m.nom|highlight_query(query))|join(', ')|raw }}</p>
+                            {% endif %}
+                            {% if critere.ateliers|length > 0 %}
+                                <p class="text-sm mt-1 text-gray-500">Ateliers associés : {{ critere.ateliers|map(a => a.nom|highlight_query(query))|join(', ')|raw }}</p>
+                            {% endif %}
+                        </li>
+                    </a>
                 {% endfor %}
             </ul>
         </section>
