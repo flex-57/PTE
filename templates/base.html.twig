@@ -20,9 +20,9 @@
 
 	<body class="text-gray-900 dark:text-gray-100 dark:bg-gray-900 transition-colors">
         {% include '_includes/_nav.html.twig' %}
-        
+
         {% if app.request.attributes.get('_route') not in ['app_login', ] %}
-    		{% include '_includes/_search.html.twig' %}
+    		{% include '_includes/_recherche.html.twig' %}
         {% endif %}
 
 		<main class="container mx-auto mt-8 px-4">

@@ -1,0 +1,52 @@
+<section class="flex items-center justify-center mt-2">
+    <form action="{{ path('app_recherche') }}" method="get" class="flex flex-col w-full max-w-md">
+
+        <!-- Checkboxes -->
+        <div class="flex items-center justify-between gap-3 px-4 mb-2">
+            <p>Inclure</p>
+            <div class="grid grid-cols-2 md:flex gap-3">
+
+                <label class="flex items-center cursor-pointer custom-checkbox">
+                    {{ form_widget(rechercheForm.domaines, { 'attr': { 'class': 'hidden' } }) }}
+                    <span class="px-2 py-0 border-2 border-dotted rounded-md transition-all duration-200">
+                        Domaines
+                    </span>
+                </label>
+
+                <label class="flex items-center cursor-pointer custom-checkbox">
+                    {{ form_widget(rechercheForm.metiers, { 'attr': { 'class': 'hidden' } }) }}
+                    <span class="px-2 py-0 border-2 border-dotted rounded-md transition-all duration-200">
+                        Métiers
+                    </span>
+                </label>
+
+                <label class="flex items-center cursor-pointer custom-checkbox">
+                    {{ form_widget(rechercheForm.ateliers, { 'attr': { 'class': 'hidden' } }) }}
+                    <span class="px-2 py-0 border-2 border-dotted rounded-md transition-all duration-200">
+                        Ateliers
+                    </span>
+                </label>
+
+                <label class="flex items-center cursor-pointer custom-checkbox">
+                    {{ form_widget(rechercheForm.criteres, { 'attr': { 'class': 'hidden' } }) }}
+                    <span class="px-2 py-0 border-2 border-dotted rounded-md transition-all duration-200">
+                        Critères
+                    </span>
+                </label>
+
+            </div>
+        </div>
+
+        <!-- Champ de recherche et bouton -->
+        <div class="flex flex-row w-full px-2">
+            {{ form_widget(rechercheForm.q, {
+                'attr': {
+                    'class': 'w-full px-4 py-1 border border-gray-300 rounded-l-md focus:outline-none focus:ring-2 focus:ring-blue-500',
+                }
+            }) }}
+            <button type="submit" class="px-2 py-1 border border-gray-300 bg-gray-200 font-semibold rounded-r-md hover:bg-gray-300 transition-colors">
+                🔍
+            </button>
+        </div>
+    </form>
+</section>
