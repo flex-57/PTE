@@ -24,7 +24,7 @@ class HighlightExtension extends AbstractExtension
 
         return preg_replace(
             "/($escapedQuery)/i", // insensible à la casse
-            '<span class="bg-yellow-200 font-semibold text-black rounded-sm">$1</span>',
+            '<span class="bg-yellow-200 font-bold text-black rounded-sm">$1</span>',
             $text
         );
     }

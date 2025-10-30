@@ -36,7 +36,7 @@
             <ul class="grid gap-3 grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
                 {% for metier in metiers %}
                     <a href="{{ path('metier_show', {'id': metier.id}) }}" class="hover:shadow-md transition">
-                        <li class="p-4 border border-gray-200 rounded-md shadow-sm hover:shadow-md transition">
+                        <li class="p-4 h-full border border-gray-200 rounded-md shadow-sm hover:shadow-md transition">
                             <h3 class="text-xl font-bold">{{ metier.nom|highlight_query(query)|raw }}</h3>
                             <p class="text-sm mt-2 text-gray-500">Domaine : {{ metier.domaine.nom|highlight_query(query)|raw }}</p>
                             {% if metier.criteres|length > 0 %}
@@ -55,7 +55,7 @@
             <ul class="grid gap-3 grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
                 {% for atelier in ateliers %}
                     <a href="{{ path('atelier_show', {'id': atelier.id}) }}" class="hover:shadow-md transition">
-                        <li class="p-4 border border-gray-200 rounded-md shadow-sm hover:shadow-md transition">
+                        <li class="p-4 h-full border border-gray-200 rounded-md shadow-sm hover:shadow-md transition">
                             <h3 class="text-xl font-bold">{{ atelier.nom|highlight_query(query)|raw }}</h3>
                             <p class="text-sm mt-2 text-gray-500">Domaine : {{ atelier.domaine.nom|highlight_query(query)|raw }}</p>
                             {% if atelier.criteres|length > 0 %}
@@ -74,7 +74,7 @@
             <ul class="grid gap-3 grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
                 {% for critere in criteres %}
                     <a href="{{ path('critere_show', {'id': critere.id}) }}" class="hover:shadow-md transition">
-                        <li class="p-4 border border-gray-200 rounded-md shadow-sm hover:shadow-md transition">
+                        <li class="p-4 h-full border border-gray-200 rounded-md shadow-sm hover:shadow-md transition">
                             <h3 class="text-xl font-bold">{{ critere.nom|highlight_query(query)|raw }}</h3>
                             {% if critere.metiers|length > 0 %}
                                 <p class="text-sm mt-2 text-gray-500">Métiers associés : {{ critere.metiers|map(m => m.nom|highlight_query(query))|join(', ')|raw }}</p>

@@ -26,9 +26,10 @@
                         title: m.nom,
                         description: m.description|length > 80 ? m.description|slice(0, 80) ~ '...' : m.description,
                         details: [
+                            {'key':'Domaine', 'value': m.domaine.nom},
                             {'key':'Critères', 'value': m.criteres|length},
                         ],
-                        color: '#2f9600',
+                        color: '#00495f',
                     } %}
 					{% include '_includes/_card.html.twig' with card_params %}
 				{% endfor %}
@@ -50,9 +51,10 @@
                         title: a.nom,
                         description: a.description|length > 80 ? a.description|slice(0, 80) ~ '...' : a.description,
                         details: [
+                            {'key':'Domaine', 'value': a.domaine.nom},
                             {'key':'Critères', 'value': a.criteres|length},
                         ],
-                        color: '#b89c00',
+                        color: '#007239',
                     } %}
 					{% include '_includes/_card.html.twig' with card_params %}
 				{% endfor %}

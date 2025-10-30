@@ -13,11 +13,27 @@ class DomaineRepository extends ServiceEntityRepository
         parent::__construct($registry, Domaine::class);
     }
 
-    public function findAll(): array
+    public function CreateQuery(): \Doctrine\ORM\QueryBuilder
     {
         return $this->createQueryBuilder('d')
             ->leftJoin('d.metiers', 'm')->addSelect('m')
             ->leftJoin('d.ateliers', 'a')->addSelect('a')
+            ->leftJoin('m.criteres', 'mc')->addSelect('mc')
+            ->leftJoin('a.criteres', 'ac')->addSelect('ac');
+    }
+
+    public function find2(int $id): ?Domaine
+    {
+        return $this->CreateQuery()
+            ->where('d.id = :id')
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
+    public function findAll(): array
+    {
+        return $this->CreateQuery()
             ->orderBy('d.nom', 'ASC')
             ->getQuery()
             ->getResult();
@@ -25,9 +41,7 @@ class DomaineRepository extends ServiceEntityRepository
 
     public function searchDeep(string $query): array
     {
-        return $this->createQueryBuilder('d')
-            ->leftJoin('d.metiers', 'm')->addSelect('m')
-            ->leftJoin('d.ateliers', 'a')->addSelect('a')
+        return $this->CreateQuery()
             ->where('d.nom LIKE :q OR m.nom LIKE :q OR a.nom LIKE :q')
             ->setParameter('q', '%' . $query . '%')
             ->orderBy('d.nom', 'ASC')

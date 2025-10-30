@@ -1,5 +1,3 @@
-{# Card moderne avec gradient dynamique et détails #}
-
 <a href="{{ link }}"
     class="group flex flex-col justify-between border rounded-md shadow-sm shadow-gray-300 transition-all duration-300 hover:shadow-lg hover:shadow-gray-400"
     style="border-color: {{ color }}66;
@@ -7,19 +5,17 @@
             background: linear-gradient(160deg, {{ color }}22 0%, {{ color }}08 100%);">
 
     <div class="pt-3 pb-2 px-4 flex flex-col flex-grow justify-between">
-        {# Titre #}
+
         <h3 class="text-2xl font-bold mb-2">{{ title }}</h3>
 
-        {# Description optionnelle #}
         {% if description %}
             <p class="text-gray-600 text-sm">{{ description }}</p>
         {% endif %}
 
-        {# Détails dynamiques #}
         {% if details is defined and details is not empty %}
-            <div class="flex justify-between gap-4">
+            <div class="mt-2 flex flex-wrap justify-between gap-x-2">
             {% for detail in details %}
-                <div class="inline-block mt-3">
+                <div class="whitespace-nowrap">
                     <span class="font-semibold" style="color: {{ color }};">{{ detail.key }}:</span>
                     {% if detail.value is iterable %}
                         <span class="text-gray-600 text-sm">
@@ -33,7 +29,7 @@
             </div>
         {% endif %}
     </div>
-    {# Barre animée en bas #}
+
     <span class="h-[3px] w-0 transition-all duration-300 group-hover:w-full"
           style="background-color: {{ color }};">
     </span>

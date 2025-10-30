@@ -12,9 +12,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-final class SearchController extends AbstractController
+final class RechercheController extends AbstractController
 {
-    #[Route('/search', name: 'app_search')]
+    #[Route('/recherche', name: 'app_search')]
     public function search(
         Request $request,
         DomaineRepository $domaineRepo,
@@ -32,7 +32,7 @@ final class SearchController extends AbstractController
                 $ateliers = $atelierRepo->searchDeep($query);
                 $criteres = $critereRepo->searchDeep($query);
 
-                return $this->render('home/search.html.twig', [
+                return $this->render('recherche/index.html.twig', [
                     'domaines' => $domaines,
                     'metiers' => $metiers,
                     'ateliers' => $ateliers,

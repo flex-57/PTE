@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	{{ parent() }} :: Métiers
+{% endblock %}
+
+{% block body %}
+	<h1 class="text-3xl font-bold mb-6">Métiers</h1>
+	{% if metiers is empty %}
+		<div class="p-6 bg-yellow-50 border border-yellow-200 rounded-lg text-yellow-700">
+			<p class="text-center">Aucun domaine trouvé.</p>
+		</div>
+	{% else %}
+		<div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+			{% for m in metiers %}
+				{% set card_params = {
+                    link: path('metier_show', {'id': m.id}),
+                    title: m.nom,
+                    description: m.description|length > 80 ? m.description|slice(0, 80) ~ '...' : m.description,
+                    details: [
+                        {'key':'Domaine', 'value': m.domaine.nom},
+                        {'key':'Critères', 'value': m.criteres|length},
+                    ],
+                    color: '#00495f',
+                } %}
+				{% include '_includes/_card.html.twig' with card_params %}
+			{% endfor %}
+		</div>
+	{% endif %}
+{% endblock %}
