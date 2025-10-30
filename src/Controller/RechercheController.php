@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Metier;
+use App\Form\RechercheType;
 use App\Repository\AtelierRepository;
 use App\Repository\CritereRepository;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,33 +15,37 @@ use Symfony\Component\Routing\Attribute\Route;
 
 final class RechercheController extends AbstractController
 {
-    #[Route('/recherche', name: 'app_search')]
+    #[Route('/recherche', name: 'app_recherche')]
     public function search(
         Request $request,
         DomaineRepository $domaineRepo,
         MetierRepository $metierRepo,
         AtelierRepository $atelierRepo,
         CritereRepository $critereRepo
-    ): Response
-    {
+    ): Response {
         $query = trim($request->query->get('q', ''));
 
-        if ($query) {
-
-                $domaines = $domaineRepo->searchDeep($query);
-                $metiers = $metierRepo->searchDeep($query);
-                $ateliers = $atelierRepo->searchDeep($query);
-                $criteres = $critereRepo->searchDeep($query);
-
-                return $this->render('recherche/index.html.twig', [
-                    'domaines' => $domaines,
-                    'metiers' => $metiers,
-                    'ateliers' => $ateliers,
-                    'criteres' => $criteres,
-                    'query' => $query,
-                ]);
+        if (!$query) {
+            return $this->redirect($request->headers->get('referer') ?? $this->generateUrl('home'));
         }
-        return $this->redirect($request->headers->get('referer') ?? $this->generateUrl('home'));
 
+        $categoryRepos = [
+            'domaines' => $domaineRepo,
+            'metiers' => $metierRepo,
+            'ateliers' => $atelierRepo,
+            'criteres' => $critereRepo,
+        ];
+
+        $results = [];
+        foreach (RechercheType::CATEGORIES as $cat) {
+            $repo = $categoryRepos[$cat];
+            $results[$cat] = $request->query->get($cat) ? $repo->searchDeep($query) : [];
+        }
+
+        return $this->render('recherche/index.html.twig', [
+            ...$results,
+            'query' => $query,
+        ]);
     }
 }
+

@@ -1,0 +1,17 @@
+/* Border dashed par défaut, devient solid quand la case est cochée */
+.custom-checkbox span {
+    border-color: #9ca3af; /* gris par défaut */
+    transition: all 0.2s ease;
+}
+
+/* Quand cochée */
+.custom-checkbox input:checked + span {
+    border-style: solid;
+    border-color: #3b82f6; /* bleu Tailwind */
+    background-color: #eff6ff; /* léger fond bleu */
+}
+
+/* Hover pour l’effet interactif */
+.custom-checkbox span:hover {
+    border-color: #3b82f6;
+}
