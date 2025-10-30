@@ -29,9 +29,9 @@ class AtelierCrudController extends BaseCrudController
     {
         return [
             IdField::new('id')->hideOnForm(),
-            TextField::new('titre'),
+            TextField::new('nom'),
             TextareaField::new('description'),
-            AssociationField::new('domaine'),
+            AssociationField::new('domaine')->setRequired(true),
         ];
     }
 }

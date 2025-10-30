@@ -32,8 +32,8 @@ class CritereCrudController extends BaseCrudController
             IdField::new('id')->hideOnForm(),
             TextField::new('nom'),
             TextareaField::new('description'),
-            AssociationField::new('metier', 'Métier'),
-            AssociationField::new('atelier', 'Atelier')->onlyOnForms(),
+            AssociationField::new('metiers', 'Métier'),
+            AssociationField::new('ateliers', 'Atelier'),
         ];
     }
 }

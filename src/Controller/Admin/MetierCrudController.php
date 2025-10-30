@@ -31,7 +31,8 @@ class MetierCrudController extends BaseCrudController
             IdField::new('id')->hideOnForm(),
             TextField::new('nom'),
             TextareaField::new('description'),
-            AssociationField::new('domaine'),
+            AssociationField::new('domaine')->setRequired(true),
+            AssociationField::new('criteres'),
         ];
     }
 }
