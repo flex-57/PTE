@@ -31,29 +31,24 @@ les **domaines** contiennent des **métiers** et/ou des **ateliers**, eux-mêmes
    composer install
    ```
 
-3. **Configurer l’environnement**
-   ```env
-  DATABASE_URL="mysql://root:@127.0.0.1:3306/pte_db?serverVersion=8.3&charset=utf8mb4"
-   ```
-
-4. **Créer la base de données**
+3. **Créer la base de données**
    ```bash
    php bin/console doctrine:database:create
    php bin/console doctrine:migrations:migrate
    ```
 
-5. **Charger le jeu d’essai (fixtures)**
+4. **Charger le jeu d’essai (fixtures)**
    ```bash
    php bin/console doctrine:fixtures:load
    ```
 
-6. **Créer un compte administrateur**
+5. **Créer un compte administrateur**
    ```bash
    php bin/console app:create-admin
    ```
    (La commande te guidera pour renseigner un email et un mot de passe.)
 
-7. **Lancer le serveur de développement**
+6. **Lancer le serveur de développement**
    ```bash
    symfony server:start
    ```
