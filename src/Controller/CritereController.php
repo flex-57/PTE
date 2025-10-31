@@ -9,7 +9,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 final class CritereController extends AbstractController
 {
-    #[Route('/critere', name: 'list_criteres')]
+    #[Route('/criteres', name: 'list_criteres')]
     public function index(CritereRepository $repo): Response
     {
         return $this->render('critere/list_criteres.html.twig', [
