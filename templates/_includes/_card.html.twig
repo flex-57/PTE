@@ -15,7 +15,7 @@
         {% if details is defined and details is not empty %}
             <div class="mt-2 flex flex-wrap justify-between gap-x-2">
             {% for detail in details %}
-                <div class="whitespace-nowrap">
+                <div class="">
                     <span class="font-semibold" style="color: {{ color }};">{{ detail.key }}:</span>
                     {% if detail.value is iterable %}
                         <span class="text-gray-600 text-sm">

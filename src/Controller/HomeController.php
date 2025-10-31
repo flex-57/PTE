@@ -10,10 +10,8 @@ use Symfony\Component\Routing\Annotation\Route;
 class HomeController extends AbstractController
 {
     #[Route('/', name: 'home')]
-    public function index(DomaineRepository $repo): Response
+    public function index(): Response
     {
-        $domaines = $repo->findAll();
-
-        return $this->render('domaine/list_domaines.html.twig', ['domaines' => $domaines]);
+        return $this->redirectToRoute('list_domaines');
     }
 }
