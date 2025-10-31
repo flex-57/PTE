@@ -32,26 +32,38 @@ class CreateAdminCommand extends Command
 
         // --- EMAIL ---
         do {
-            $emailQuestion = new Question('Entrez l\'email de l\'admin : ');
+            $emailQuestion = new Question("Entrez l'email de l'admin : ");
             $email = $helper->ask($input, $output, $emailQuestion);
 
             if (!$email || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                $output->writeln('<error>Email invalide, réessayez !</error>');
+                $output->writeln('<error>Email invalide, veuillez réessayez !</error>');
                 $email = null;
             }
         } while (!$email);
 
         // --- PASSWORD ---
         do {
-            $passwordQuestion = new Question('Entrez le mot de passe de l\'admin : ');
+            $passwordQuestion = new Question(
+                "Entrez le mot de passe de l'admin" 
+                . "\n" . 
+                "<comment>- Doit contenir au moins 8 caractères, une majuscule, un chiffre et un caractère spécial.</comment> :"
+            );
             $passwordQuestion->setHidden(true);
             $passwordQuestion->setHiddenFallback(false);
             $password = $helper->ask($input, $output, $passwordQuestion);
+
+            $confirmPasswordQuestion = new Question("Répétez le mot de passe : ");
+            $confirmPasswordQuestion->setHidden(true);
+            $confirmPasswordQuestion->setHiddenFallback(false);
+            $confirmPassword = $helper->ask($input, $output, $confirmPasswordQuestion);
 
             // Vérification du mot de passe
             $pattern = '/^(?=.*[A-Z])(?=.*[0-9])(?=.*[\W_]).{8,}$/';
             if (!$password || !preg_match($pattern, $password)) {
                 $output->writeln('<error>Mot de passe invalide : doit contenir au moins 8 caractères, une majuscule, un chiffre et un caractère spécial.</error>');
+                $password = null;
+            } elseif ($password !== $confirmPassword) {
+                $output->writeln('<error>Les mots de passe ne correspondent pas, veuillez réessayez.</error>');
                 $password = null;
             }
         } while (!$password);
@@ -72,9 +84,9 @@ class CreateAdminCommand extends Command
         $this->entityManager->persist($user);
         $this->entityManager->flush();
 
-        $output->writeln('<info>Le nouvel administrateur a été créé avec succès !</info>');
+        $output->writeln('<info>Le nouvel administrateur a été crée avec succès !</info>');
         $output->writeln("Email: $email");
-        $output->writeln("Mot de passe défini.");
+        $output->writeln("Allez maintenant sur la page de connexion <comment>http://127.0.0.1:8000/login</comment> et connectez-vous.");
 
         return Command::SUCCESS;
     }
